@@ -1,44 +1,32 @@
-import { useState, useCallback } from "react";
-import "./App.css";
-
-
-function Child({handleClick}){
-  
-  // console.log("the child has been rendered")
-
-  return(
-    <div>
-        <button onClick={handleClick}>Click Me</button>
-        
-    </div>
-  )
-}
+import React, { useRef } from "react";
 
 function App() {
-  // const [num, setNum] = useState(0);
-  const [other,setOther]=useState(0);
+  // Use useRef to store a mutable value that does not trigger a re-render
+  const countRef = useRef(0);
+  const inputRef=useRef(null)
 
-  console.log("the parent has been rendered")
+  const handleClick = () => {
+    // Update the value of countRef without triggering a re-render
+    countRef.current = countRef.current + 1;
 
-  const handleClick=useCallback(()=>{
-            console.log("the child has been rendered") 
-  },[])
-  
+    if(countRef.current>=3)
+    console.log("Updated countRef:", countRef.current);
+  };
+
+  //used to foucs on an element
+  const handleFocus=()=>{
+    console.log(inputRef)
+    inputRef.current.focus()
+  }
+
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
-       <h1>Other Num:{other}</h1>
-       <button onClick={()=>setOther(other+1)}>Change Other</button>
-       <Child handleClick={handleClick}/>
-      </div>
+    <div>
+      <input ref={inputRef} type="name" />
+      <button onClick={handleFocus}>Focus</button>
+      <h1>Click the button to update countRef without re-rendering</h1>
+      <button onClick={handleClick}>Increment countRef</button>
+      {/* Displaying the value of countRef directly */}
+      <p>Current countRef value: {countRef.current}</p>
     </div>
   );
 }
