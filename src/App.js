@@ -1,26 +1,29 @@
-import { useState, useMemo } from "react";
+import { useState, useCallback } from "react";
 import "./App.css";
 
+
+function Child({handleClick}){
+  
+  // console.log("the child has been rendered")
+
+  return(
+    <div>
+        <button onClick={handleClick}>Click Me</button>
+        
+    </div>
+  )
+}
+
 function App() {
-  const [num, setNum] = useState(0);
+  // const [num, setNum] = useState(0);
   const [other,setOther]=useState(0);
 
-  // Optimized Fibonacci calculation using memoization
-  const fibonacci = (n) => {
-    if (n <= 1) return 1;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-  };
+  console.log("the parent has been rendered")
 
-  // Memoized Fibonacci result
-  const result = useMemo(() => {
-    const parsedNum = parseInt(num, 10);
-    console.log("the function has been rendered")
-    if (isNaN(parsedNum) || parsedNum < 0) return "Invalid input";
-    return fibonacci(parsedNum);
-  }, [num]);
-
-  console.log("The root component has been re-rendered");
-
+  const handleClick=useCallback(()=>{
+            console.log("the child has been rendered") 
+  },[])
+  
   return (
     <div
       style={{
@@ -32,18 +35,9 @@ function App() {
       }}
     >
       <div>
-        <input
-          type="number"
-          value={num}
-          onChange={(e) => setNum(e.target.value)}
-          
-          placeholder="Enter a number"
-        />
-        <p>
-          The Fibonacci of {num} is: <strong>{result}</strong>
-        </p>
-        <p>the other number is {other}</p>
-        <button onClick={()=>setOther(other+1)}>change other</button>
+       <h1>Other Num:{other}</h1>
+       <button onClick={()=>setOther(other+1)}>Change Other</button>
+       <Child handleClick={handleClick}/>
       </div>
     </div>
   );
