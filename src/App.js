@@ -5,6 +5,7 @@ import About from "./components/About";
 import UserDetails from "./components/UserDetails";
 import Users from "./components/Users";
 import Navbar from "./components/Navbar";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
            <Route path="/about" element={<About/>}/>
            <Route path="/users" element={<Users/>}/>
            <Route path="/users/:id/:category" element={<UserDetails/>} />
+           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Router>
     </div>
