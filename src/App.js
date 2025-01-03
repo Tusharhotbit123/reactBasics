@@ -1,23 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
-import PageNotFound from "./components/PageNotFound";
-import UserCard from "./components/UserCard";
-import Form from "./components/Form";
-import ArrayMethods from "./components/ArrayMethods";
+import Todo from "./pages/Todo";
 
 function App() {
 
   return (
 
-    <div>
-      <Router>
-        <Routes>
-           <Route path="*" element={<PageNotFound/>}/>
-           <Route path="/users" element={<UserCard/>}/>
-           <Route path="/form" element={<Form/>}/>
-           <Route path="/methods" element={<ArrayMethods/>}/>
-        </Routes>
-      </Router>
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 h-[100vh] flex items-center justify-center">
+      <Todo/>
     </div>
   );
 }
